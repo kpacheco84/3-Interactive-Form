@@ -14,7 +14,14 @@ $( document ).ready(function() {
 
     let select = $(this).val();
 
-    console.log(select);
+   if (select === 'other') {
+       
+    console.log('TEST');
+   const otherTitle = '<input type="text"  id="other_title" />';
+        $('#title').append(otherTitle);
+ 
+   
+   }
 
   
 
