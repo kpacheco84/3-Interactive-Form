@@ -1,7 +1,21 @@
 //focus on first field on load
 
 
-//$("#name input:text, #name textarea").eq(0).focus();
+$( document ).ready(function() {
+    $( "#name" ).focus();
+  });
 
-//test
-console.log('HELLO');
+
+  //JobRole section
+  
+  
+
+ $('#title').on('change', function(e){
+
+    let select = $(this).val();
+
+    console.log(select);
+
+  
+
+});
