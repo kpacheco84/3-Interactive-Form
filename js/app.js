@@ -1,12 +1,4 @@
 
-/*notes to self
-A selector to get the middle option-element by value is
-$('.selDiv option[value="SEL1"]')
-For an index:
-$('.selDiv option:eq(1)')
-For a known text:
-$('.selDiv option:contains("Selection 1")')
-*/
 
 //focus on first field on load
 
@@ -25,9 +17,8 @@ $( document ).ready(function() {
 
    if (select === 'other') {
        
-    console.log('TEST');
-   //const otherTitle = '<input type="text" id="oth_title" name="other_job_title" placeholder="Your Job Role"/>';
-       othTitle.show();
+    
+    othTitle.show();
  
    
    }
@@ -38,11 +29,6 @@ $( document ).ready(function() {
 
 
 
-// this is how i can hide a particular color
- //$('#colors-js-puns option[value="cornflowerblue"]').hide();
-
- //$('#colors-js-puns option').hide();
- // first hide select color drop down
 
  //hide color div
  $('#colors-js-puns').hide();
@@ -78,10 +64,10 @@ $( document ).ready(function() {
   
    
    }
-   // need to get cornflower to not show initially
+ 
 else if (select === 'heart js') {
     $('#colors-js-puns').show();
-    //$('#colors-js-puns option[value="cornflowerblue"]').attr('disabled','disabled');
+    
     $('#colors-js-puns option[value="tomato"]').show().attr('selected','selected');
     $('#colors-js-puns option[value="steelblue"]').show();
     $('#colors-js-puns option[value="dimgrey"]').show();
@@ -107,8 +93,116 @@ else if (select === 'heart js') {
 
 });
 
- /*
+//”Register for Activities” section
+
+// disable activities on the same day and time
+//Tuesday 9am-12pm //Tuesday 1pm-4pm // Wednesday 9am-12pm// Wednesday 1pm-4pm
+
+var actString1 = $('.activities label:contains("Tuesday 9am-12pm")').find("input[type='checkbox']");
+var actString2 = $('.activities label:contains("Tuesday 1pm-4pm")').find("input[type='checkbox']");
+var actString3 = $('.activities label:contains("Wednesday 9am-12pm")').find("input[type='checkbox']");
+var actString4 = $('.activities label:contains("Wednesday 1pm-4pm")').find("input[type='checkbox']");
+
+var activity = $('.activities label').find("input[type='checkbox']");
+
+// activity event handler when checking a box
+$(activity).on('change', function(e){
+
+let total = parseInt(0);
+var label=$(this).prop("labels");
+var      text = $(label).text();
+ var checkedActivity = $( "input:checked" );     
+   
+
+
+ var ischecked= $(this).is(':checked');
  
+ 
+// if the checkbox was checked
+ if(ischecked)
+   {
+
+  
+
+          if (text.includes("Tuesday 9am-12pm") ) {
+            actString1.attr("disabled", true);
+           checkedActivity.attr("disabled", false);
+           
+          
+           }
+        
+   else if (text.includes("Tuesday 1pm-4pm")     )
+
+   {
+    actString2.attr("disabled", true);
+    checkedActivity.attr("disabled", false);
+
+    
+
+   }
+   else if (text.includes("Wednesday 9am-12pm")     )
+
+   {
+       
+    actString3.attr("disabled", true);
+    checkedActivity.attr("disabled", false);
+   }
+   else if (text.includes("Wednesday 1pm-4pm")     )
+
+   {
+    actString4.attr("disabled", true);
+    checkedActivity.attr("disabled", false);
+
+   }
+   var amount = parseInt((text.split('$')[1]));
+   
+   total = (total+ parseInt(amount));
+   console.log(total);
+
+}
+//end if checked loop
 
 
-*/
+// if check box was unchecked
+   if(!ischecked){
+
+    alert('uncheckd ');
+        if (text.includes("Tuesday 9am-12pm") ) {
+                actString1.attr("disabled", false);
+
+
+                checkedActivity.attr("disabled", false);
+                        }
+
+        else if (text.includes("Tuesday 1pm-4pm")     )
+
+            {
+            actString2.attr("disabled", false);
+            checkedActivity.attr("disabled", false);
+
+            }
+        else if (text.includes("Wednesday 9am-12pm")     )
+
+            {
+
+            actString3.attr("disabled", false);
+            checkedActivity.attr("disabled", false);
+            }
+        else if (text.includes("Wednesday 1pm-4pm")     )
+
+                {
+            actString4.attr("disabled", false);
+            checkedActivity.attr("disabled", false);
+
+                }
+                var amount = parseInt((text.split('$')[1]));
+   
+                total = (total+ parseInt(amount));
+                console.log(total);
+}
+//end of unchecked loop
+
+
+});
+     
+
