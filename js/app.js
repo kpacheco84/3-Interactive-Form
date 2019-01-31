@@ -21,6 +21,9 @@ $( document ).ready(function() {
     othTitle.show();
  
    
+   } else {
+    othTitle.hide();
+
    }
 
   
