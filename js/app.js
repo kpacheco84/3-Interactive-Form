@@ -106,20 +106,33 @@ var actString3 = $('.activities label:contains("Wednesday 9am-12pm")').find("inp
 var actString4 = $('.activities label:contains("Wednesday 1pm-4pm")').find("input[type='checkbox']");
 
 var activity = $('.activities label').find("input[type='checkbox']");
+var totalDiv = $(".activities").append('<div class="total">Total: $0</div>');
+var totalDivText = $('.total').text();
+var TotalDivVal = parseInt((totalDivText.split('$')[1]));
 
 // activity event handler when checking a box
 $(activity).on('change', function(e){
 
-let total = parseInt(0);
+
 var label=$(this).prop("labels");
 var      text = $(label).text();
  var checkedActivity = $( "input:checked" );     
+var ischecked= $(this).is(':checked');
+const checkbox = $(event.target).parent().text();
+
+var amount = parseInt((text.split('$')[1]));
+    let total = 0
    
 
 
- var ischecked= $(this).is(':checked');
- 
- 
+
+
+
+
+
+  
+
+
 // if the checkbox was checked
  if(ischecked)
    {
@@ -156,10 +169,9 @@ var      text = $(label).text();
     checkedActivity.attr("disabled", false);
 
    }
-   var amount = parseInt((text.split('$')[1]));
    
    total = (total+ parseInt(amount));
-   console.log(total);
+   $('.total').text(total);
 
 }
 //end if checked loop
@@ -199,15 +211,18 @@ var      text = $(label).text();
                 }
                 var amount = parseInt((text.split('$')[1]));
    
-                total = (total+ parseInt(amount));
-                console.log(total);
+                total = (total- parseInt(amount));
+                $('.total').text(total);
 }
 //end of unchecked loop
 
 
 });
      
+//keep track of price
 
+
+   
 //Payment Information
 // default select credit card method
 $('#payment option[value="credit card"]').prop('selected', true);
@@ -284,50 +299,155 @@ If any of the following validation errors exist, prevent the user from submittin
     let name= $('#name');
     let email =$('#mail');
     var ck_box = $('.activities label').find('input[type="checkbox"]:checked').length;
+    const emailPattern =  /^[^@\s]+@[^@\s.]+\.[a-z]{1,256}$/i;
+    let cc =$("#cc-num");
+    let ccLength= cc.val().length;
+    let zip = $("#zip");
+    let zipLength= zip.val().length;
+    let cvv = $("#cvv");
+    let cvvLength = cvv.val().length;
+  
+     
    
-    //const emailPattern =  /^[^@\s]+@[^@\s.]+\.[a-z]{1,256}$/i;
-    
-
-//THIS IS WORKING EXCEPT COLOR CHANGE
-/*function validateForm() {
-   
-   
+   const validateName =function(){
     if ( name.val()=== ''  || name.val()=== "null" ){
         
         $(name).css("border", "5px solid red");
-        console.log('ENTER NAME');
-         return false;
-    }
-
-    else if(ck_box === 0){
-      console.log('please check an activity');
-      $('.activities').css("border", "5px solid red");
-      return false;
-    } 
-   /* else{
-        console.log('activity checked');
-        return true;
         
-    }
+         return false;
+            }
+            else{
+                $(name).css("border", "");
+              
+           return true;
 
-    return true;
+            }
 
+        };
+
+const validateEmail = function(){
+   
+        
+    if((emailPattern.test(email.val()))){
+       
     
-};*/
+        $(email).css("border", "");
+        return true;
+       
+      
+      } 
+     else {
+      
+        $(email).css("border", "5px solid red");
+        return false;
+
+     }
+
+};
+
+
+
+
+
+
+
+
+      const validateActivity = function(){
+         
+        
+         if($('.activities label').find('input[type="checkbox"]:checked').length === 0){
+           
+            $('.activities').css("border", "5px solid red");
+            return false;
+          } 
+         else {
+           
+            $('.activities').css("border", "");
+            return true;
+  
+         }
+        };
+
+
+
+        const validateCC = function()
+        {
+           
+            if (13 <= cc.val().length && cc.val().length <= 16){
+                $(cc).css("border", "");
+               
+                return true;
+               
+                    }
+                    else{
+                        $(cc).css("border", "5px solid red");
+                      
+                         return false;
+        
+                    }
+        
+                };
+        
+
+                const validateZip = function()
+                {
+                   
+
+                    if (zip.val().length=== 5){
+                        $(zip).css("border", "");
+                        
+                        return true;
+                       
+                            }
+                            else{
+                                $(zip).css("border", "5px solid red");
+                               
+                                 return false;
+                
+                            }
+                
+                        };
+               
+                        const validateCVV = function()
+                        {
+                            
+
+                            if (cvv.val().length=== 3){
+                                $(cvv).css("border", "");
+                                //console.log('you entered a valid CVV');
+                                return true;
+                               
+                                    }
+                                    else{
+                                        $(cvv).css("border", "5px solid red");
+                                       
+                                         return false;
+                        
+                                    }
+                        
+                                };
+                                
+                        
 
 
 
 
 
 // let user submit form unless there are errors
-// NOT WORKING
-/*
+
+
 $('button').on('click', function (e) {
 
-    validateForm();
+    validateName();
+ validateActivity();
+ validateCC();
  
+ validateEmail();
 
-    if ( validateForm() === false) {
+ validateZip();
+ validateCVV();
+
+    if (validateName() === false || validateActivity()=== false || validateCC()=== false ||validateZip()=== false || validateCVV()===false|| validateEmail()=== false ) {
 
         e.preventDefault();
 
@@ -341,11 +461,4 @@ $('button').on('click', function (e) {
 
 });
 
-*/
 
-
-
-/* LAST SESSION NOTES  EACH VALIDATION  validate const function ex validateEmail 
-
-then check if each one is true or false and set its colors, clear the colors on each submit
-*/
