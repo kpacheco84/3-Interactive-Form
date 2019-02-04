@@ -109,7 +109,7 @@ var activity = $('.activities label').find("input[type='checkbox']");
 var totalDiv = $(".activities").append('<div class="total">Total: $0</div>');
 var totalDivText = $('.total').text();
 var TotalDivVal = parseInt((totalDivText.split('$')[1]));
-
+let total = 0;
 // activity event handler when checking a box
 $(activity).on('change', function(e){
 
@@ -121,7 +121,7 @@ var ischecked= $(this).is(':checked');
 const checkbox = $(event.target).parent().text();
 
 var amount = parseInt((text.split('$')[1]));
-    let total = 0
+    
    
 
 
@@ -171,7 +171,7 @@ var amount = parseInt((text.split('$')[1]));
    }
    
    total = (total+ parseInt(amount));
-   $('.total').text(total);
+   $('.total').text("Total: $"+ total);
 
 }
 //end if checked loop
@@ -212,7 +212,7 @@ var amount = parseInt((text.split('$')[1]));
                 var amount = parseInt((text.split('$')[1]));
    
                 total = (total- parseInt(amount));
-                $('.total').text(total);
+                $('.total').text("Total: $"+total);
 }
 //end of unchecked loop
 
