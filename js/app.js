@@ -368,12 +368,27 @@ const validateEmail = function(){
          }
         };
 
+        const validatePayment = function (){
+            if($('#payment option[value="credit card"]').prop('selected')=== true){
+                validateCC(); 
+                validateZip();
+                validateCVV();
+           if( validateCC() === true && validateCVV()=== true && validateZip() === true){
+
+            return true;
+           }
+           else{
+               return false;
+           }
+        }
+    };
 
 
         const validateCC = function()
         {
+            
            
-            if (13 <= cc.val().length && cc.val().length <= 16){
+            if (13 <= cc.val().length && cc.val().length <= 16 && $.isNumeric(cc.val())){
                 $(cc).css("border", "");
                
                 return true;
@@ -385,15 +400,15 @@ const validateEmail = function(){
                          return false;
         
                     }
-        
                 };
-        
+  
+
 
                 const validateZip = function()
                 {
                    
 
-                    if (zip.val().length=== 5){
+                    if (zip.val().length=== 5 && $.isNumeric(zip.val())){
                         $(zip).css("border", "");
                         
                         return true;
@@ -412,7 +427,7 @@ const validateEmail = function(){
                         {
                             
 
-                            if (cvv.val().length=== 3){
+                            if (cvv.val().length=== 3 && $.isNumeric(cvv.val())){
                                 $(cvv).css("border", "");
                                 //console.log('you entered a valid CVV');
                                 return true;
@@ -426,8 +441,8 @@ const validateEmail = function(){
                                     }
                         
                                 };
-                                
-                        
+                               
+                            
 
 
 
@@ -440,14 +455,12 @@ $('button').on('click', function (e) {
 
     validateName();
  validateActivity();
- validateCC();
+ validatePayment();
  
  validateEmail();
 
- validateZip();
- validateCVV();
 
-    if (validateName() === false || validateActivity()=== false || validateCC()=== false ||validateZip()=== false || validateCVV()===false|| validateEmail()=== false ) {
+    if (validateName() === false || validateActivity()=== false || validatePayment()=== false || validateEmail()=== false ) {
 
         e.preventDefault();
 
