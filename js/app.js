@@ -308,12 +308,19 @@ If any of the following validation errors exist, prevent the user from submittin
     let cvvLength = cvv.val().length;
   
      
+
+$(name).focusout(function(){
+
+validateName();
+});
    
+
+
    const validateName =function(){
     if ( name.val()=== ''  || name.val()=== "null" ){
         
         $(name).css("border", "5px solid red");
-        
+        alert('You must first enter a name!');
          return false;
             }
             else{
@@ -368,20 +375,7 @@ const validateEmail = function(){
          }
         };
 
-        const validatePayment = function (){
-            if($('#payment option[value="credit card"]').prop('selected')=== true){
-                validateCC(); 
-                validateZip();
-                validateCVV();
-           if( validateCC() === true && validateCVV()=== true && validateZip() === true){
-
-            return true;
-           }
-           else{
-               return false;
-           }
-        }
-    };
+     
 
 
         const validateCC = function()
@@ -395,11 +389,26 @@ const validateEmail = function(){
                
                     }
                     else{
-                        $(cc).css("border", "5px solid red");
-                      
-                         return false;
-        
+
+                        if(cc.val().length ===0)
+                        {alert("You must enter a Credit Card Number");
                     }
+                        if  ((cc.val().length >0 && cc.val().length <13 )|| cc.val().length > 16)
+                        {
+
+                            alert('Credit Card number must be between 13 - 16 digits');
+                        }
+                    
+                    
+                    
+                        
+                    $(cc).css("border", "5px solid red");
+                  
+                     return false;
+                    
+                    }
+        
+                    
                 };
   
 
@@ -455,12 +464,15 @@ $('button').on('click', function (e) {
 
     validateName();
  validateActivity();
- validatePayment();
+ 
  
  validateEmail();
+ if($('#payment option[value="credit card"]').prop('selected')=== true){
+validateCC();
+validateCVV();
+validateZip();
 
-
-    if (validateName() === false || validateActivity()=== false || validatePayment()=== false || validateEmail()=== false ) {
+    if (validateName() === false || validateActivity()=== false || validateCC()=== false ||validateCVV()===false|| validateZip()=== false || validateEmail()=== false ) {
 
         e.preventDefault();
 
@@ -469,6 +481,24 @@ $('button').on('click', function (e) {
         ("button").submit();
 
     }
+
+
+ }
+else {
+    if (validateName() === false || validateActivity()=== false  || validateEmail()=== false ) {
+
+        e.preventDefault();
+
+    } else {
+
+        ("button").submit();
+
+    }
+
+
+
+
+}
 
     
 
