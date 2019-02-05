@@ -134,7 +134,12 @@ button:hover {
 .credit-card {
 	margin-top: 1.25em;
 }
-
+.emsg {
+	color: red;
+  }
+  .hidden {
+	display: none;
+  }
 /* ================================= 
   Helper Classes
 ==================================== */

@@ -306,21 +306,34 @@ If any of the following validation errors exist, prevent the user from submittin
     let zipLength= zip.val().length;
     let cvv = $("#cvv");
     let cvvLength = cvv.val().length;
+    let msg = $('.emsg');
+    
+           
   
-     
-
-$(name).focusout(function(){
-
-validateName();
-});
-   
+//real time error message  for email
+    $(document).ready(function () {
+        
+        email.on('input', function () {
+           
+          var val = $(this).val();
+          if(val.length === 0) {
+            msg.show();
+          } else if ((emailPattern.test(email.val()))) {
+           
+            msg.hide();
+          } else
+          {
+            msg.show();
+          }
+        });
+      });
 
 
    const validateName =function(){
     if ( name.val()=== ''  || name.val()=== "null" ){
         
         $(name).css("border", "5px solid red");
-        alert('You must first enter a name!');
+        //alert('You must first enter a name!');
          return false;
             }
             else{
@@ -476,11 +489,12 @@ validateZip();
 
         e.preventDefault();
 
-    } else {
+    } /*else {
 
         ("button").submit();
 
     }
+    */
 
 
  }
@@ -489,11 +503,11 @@ else {
 
         e.preventDefault();
 
-    } else {
+    } /*else {
 
         ("button").submit();
 
-    }
+    }*/
 
 
 
